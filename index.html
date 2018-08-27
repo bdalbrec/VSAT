@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/main.css">
+    <title>Virus Scan Audit Tracking</title>
+</head>
+<body>
+
+    <div id="atf"> 
+
+        <header><h1>Virus Scan Audit Tracking</h1></header>
+        
+
+        <form method="post" action="add">
+            <fieldset>
+                <legend>Sign Off a Scanner</legend>
+                <input id="location-input" class ="form-field" name="location" type="text" placeholder="Fab/Subfab">
+                <input id="equipment-input" class ="form-field" name="equipment" type="text" placeholder="Scanner Name">
+                <input id="date-input" class ="form-field" name="date" type="date">
+                <input id="tech-input" class ="form-field" name="tech" type="text" placeholder="Audited By">
+                <input id="btn-submit" type="submit" value="Submit">
+            </fieldset>
+        </form>
+
+        <footer>Page Owner - <a target="_blank" href="mailto:brian.d.albrecht@intel.com?subject=Virus Scan Audit Tracking Feedback">Brian Albrecht</a> | Last updated <script src="public/FileDate.js"></script></footer>
+
+    </div> 
+    
+</body>
+</html>
