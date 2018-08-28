@@ -9,7 +9,7 @@ type Entry struct {
 }
 
 func AllEntries() ([]*Entry, error){
-	rows, err := db.Query("SELECT * FROM audits")
+	rows, err := db.Query("SELECT * FROM audits ORDER BY Date DESC")
 	if err != nil {
 		return nil, err
 	}

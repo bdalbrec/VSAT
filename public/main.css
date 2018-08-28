@@ -1,5 +1,5 @@
 * {
-   /*border: 4px solid hotpink; */
+  /* border: 4px solid hotpink;*/ 
 }
 
 
@@ -51,9 +51,23 @@ h1 {
     margin: 15px;
 }
 
+table {
+    border: 3px solid lightgray; 
+    margin-top: 40px;
+    width: 60%;
+}
+
+th, td {
+    border: 1px solid lightgray;
+    padding: 5px;
+}
+
 footer {
     position: absolute;
     bottom: 0;
     color: rgba(255,255,255,.7);
     font-size: 1vw;
+    left: 0px;
+    text-align: center;
+    width: 100%;
 }
