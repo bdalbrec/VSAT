@@ -36,6 +36,7 @@ func main() {
 	http.HandleFunc("/", index)
 	http.HandleFunc("/add", addEntry)
 	http.HandleFunc("/scanners", scanners)
+	http.HandleFunc("/addScanner", addScanner)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.Handle("/public/", http.StripPrefix("/public", http.FileServer(http.Dir("public/"))))
 	http.ListenAndServe(":8080", nil)
@@ -56,11 +57,8 @@ func index(w http.ResponseWriter, req *http.Request) {
 	var data []result
 
 	for _, e := range ents {
-		fmt.Printf("%s\t %s\t %s\t %s\n", e.Location, e.Equipment, e.Date, e.Tech)
-
 		var r result
 
-		r.Location = e.Location
 		r.Equipment = e.Equipment
 		r.Date = e.Date
 		r.Tech = e.Tech
@@ -71,20 +69,17 @@ func index(w http.ResponseWriter, req *http.Request) {
 
 	output.setList(data)
 
-	fmt.Println(data)
-
 	tpl.ExecuteTemplate(w, "index.html", output)
 }
 
 
 func addEntry(w http.ResponseWriter, req *http.Request) {
-	loc := req.FormValue("location")
 	eqp := req.FormValue("equipment")
 	date := req.FormValue("date")
 	tech := req.FormValue("tech")
 
-	fmt.Printf("Inserting %s\t %s\t %s\t %s\n", loc, eqp, date, tech)
-	models.Insert(loc, eqp, date, tech)
+	fmt.Printf("Inserting %s\t %s\t %s into audits history.\n", eqp, date, tech)
+	models.Insert(eqp, date, tech)
 
 	http.Redirect(w, req, "/", http.StatusSeeOther)
 	return
@@ -110,8 +105,6 @@ func scanners(w http.ResponseWriter, req *http.Request) {
 	var data []scanner
 
 	for _, e := range ents {
-		fmt.Printf("%s\t %s\t %s\n", e.Name, e.Fab, e.Location)
-
 		var s scanner
 
 		s.Name = e.Name
@@ -121,7 +114,16 @@ func scanners(w http.ResponseWriter, req *http.Request) {
 		data = append(data, s)
 	}
 
-	fmt.Println(data)
-
 	tpl.ExecuteTemplate(w, "scanners.html", data)
+}
+
+func addScanner(w http.ResponseWriter, req *http.Request) {
+	name := req.FormValue("equipment")
+	fab := req.FormValue("fab")
+	loc := req.FormValue("location")
+
+	fmt.Printf("Inserting %s\t %s\t %s into scanners.\n", name, fab, loc)
+	models.AddScanner(name, fab, loc)
+
+	http.Redirect(w, req, "/scanners", http.StatusSeeOther)
 }

@@ -17,7 +17,6 @@
         <form method="post" action="add">
             <fieldset>
                 <legend>Sign Off a Scanner</legend>
-                <input id="location-input" class ="form-field" name="location" type="text" placeholder="Fab/Subfab" required>
                 <input id="equipment-input" class ="form-field" name="equipment" type="text" placeholder="Scanner Name" required>
                 <input id="date-input" class ="form-field" name="date" type="date" required>
                 <input id="tech-input" class ="form-field" name="tech" type="text" placeholder="Audited By" required>
@@ -27,14 +26,12 @@
 
         <table>
                 <tr>
-                    <th>Location</th>
-                    <th>Equipment</th>
+                    <th>Scanner</th>
                     <th>Date Audited</th>
                     <th>Audited By</th>
                 </tr>
                 {{range .List}}
                 <tr>
-                    <td>{{.Location}}</td>
                     <td>{{.Equipment}}</td>
                     <td>{{.Date}}</td>
                     <td>{{.Tech}}</td>

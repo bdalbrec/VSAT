@@ -9,6 +9,17 @@
 </head>
 <body>
     <h1>Scanner Locations</h1>
+
+    <form method="post" action="addScanner">
+            <fieldset>
+                <legend>Add a Scanner</legend>
+                <input id="equipment-input" class ="form-field" name="equipment" type="text" placeholder="Scanner Name" required>
+                <input id="fab-input" class ="form-field" name="fab" type="text" placeholder="Fab/Subfab" required>
+                <input id="location-input" class ="form-field" name="location" type="text" placeholder="Specific Location" required>
+                <input id="btn-submit" type="submit" value="Submit">
+            </fieldset>
+        </form>
+
     <table>
         <tr>
             <th>Scanner</th>

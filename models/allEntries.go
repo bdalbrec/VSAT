@@ -18,7 +18,7 @@ func AllEntries() ([]*Entry, error){
 	ents := make([]*Entry, 0)
 	for rows.Next() {
 		e := new(Entry)
-		err := rows.Scan(&e.Timestamp, &e.Location, &e.Equipment, &e.Date, &e.Tech)
+		err := rows.Scan(&e.Timestamp, &e.Equipment, &e.Date, &e.Tech)
 		if err != nil {
 			return nil, err
 		}
