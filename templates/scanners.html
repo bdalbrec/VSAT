@@ -10,6 +10,8 @@
 <body>
     <h1>Scanner Locations</h1>
 
+    {{template "nav"}}
+
     <form method="post" action="addScanner">
             <fieldset>
                 <legend>Add a Scanner</legend>
@@ -34,5 +36,7 @@
             </tr>
         {{end}}
     </table>
+
+    {{template "footer"}}
 </body>
 </html>

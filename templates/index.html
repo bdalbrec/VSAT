@@ -9,10 +9,9 @@
 </head>
 <body>
 
-    <div id="atf"> 
-
-        <header><h1>Virus Scan Audit Tracking</h1></header>
+        <h1>Virus Scan Audit Tracking</h1>
         
+        {{template "nav"}}
 
         <form method="post" action="add">
             <fieldset>
@@ -38,11 +37,8 @@
                 </tr>
                     
                 {{end}}
-            </table>
-    </div> 
+            </table> 
 
-
-    <footer>Page Owner - <a target="_blank" href="mailto:brian.d.albrecht@intel.com?subject=Virus Scan Audit Tracking Feedback">Brian Albrecht</a> | Last refresh <script src="public/FileDate.js"></script></footer>
-    
+    {{template "footer"}}
 </body>
 </html>

@@ -27,7 +27,7 @@ func (l *results) setList(list []result) {
 var tpl *template.Template
 
 func init() {
-	tpl = template.Must(template.ParseGlob("*.html"))
+	tpl = template.Must(template.ParseGlob("templates/*.html"))
 }
 
 func main() {
