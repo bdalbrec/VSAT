@@ -15,9 +15,9 @@
     <form method="post" action="addScanner">
             <fieldset>
                 <legend>Add a Scanner</legend>
-                <input id="equipment-input" class ="form-field" name="equipment" type="text" placeholder="Scanner Name" required>
-                <input id="fab-input" class ="form-field" name="fab" type="text" placeholder="Building" required>
-                <input id="location-input" class ="form-field" name="location" type="text" placeholder="Specific Location" required>
+                <input id="equipment-input" class ="form-field" name="equipment" type="text" placeholder="Scanner Name" maxlength="25" required>
+                <input id="fab-input" class ="form-field" name="fab" type="text" placeholder="Building" maxlength="25" required>
+                <input id="location-input" class ="form-field" name="location" type="text" placeholder="Specific Location" maxlength="500" required>
                 <input id="btn-submit" type="submit" value="Submit">
             </fieldset>
         </form>
