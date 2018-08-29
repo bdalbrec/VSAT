@@ -55,7 +55,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 	var output results
 
 	// grab the list of all audits from the db
-	ents, err := models.AllEntries()
+	ents, err := models.LastEntries()
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, http.StatusText(500), 500)
