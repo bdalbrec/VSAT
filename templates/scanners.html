@@ -16,7 +16,7 @@
             <fieldset>
                 <legend>Add a Scanner</legend>
                 <input id="equipment-input" class ="form-field" name="equipment" type="text" placeholder="Scanner Name" required>
-                <input id="fab-input" class ="form-field" name="fab" type="text" placeholder="Fab/Subfab" required>
+                <input id="fab-input" class ="form-field" name="fab" type="text" placeholder="Building" required>
                 <input id="location-input" class ="form-field" name="location" type="text" placeholder="Specific Location" required>
                 <input id="btn-submit" type="submit" value="Submit">
             </fieldset>
@@ -25,7 +25,7 @@
     <table>
         <tr>
             <th>Scanner</th>
-            <th>Fab</th>
+            <th>Building</th>
             <th>Location</th>
         </tr>
         {{range .}}

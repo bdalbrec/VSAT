@@ -15,8 +15,12 @@
 
         <form method="post" action="add">
             <fieldset>
-                <legend>Sign Off a Scanner</legend>
-                <input id="equipment-input" class ="form-field" name="equipment" type="text" placeholder="Scanner Name" required>
+                <legend>Sign Off a Scanner Audit</legend>
+                <select id="equipment-input" class ="form-field" name="equipment" required>
+                    {{range .Choices}}
+                        <option value="{{.}}">{{.}}</option>
+                    {{end}}
+                </select>
                 <input id="date-input" class ="form-field" name="date" placeholder= "yyyy-mm-dd" type="date" required>
                 <input id="tech-input" class ="form-field" name="tech" type="text" placeholder="Audited By" required>
                 <input id="btn-submit" type="submit" value="Submit">

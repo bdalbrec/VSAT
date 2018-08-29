@@ -9,6 +9,7 @@ import (
 
 type results struct {
 	List []result
+	Choices []string
 }
 
 
@@ -22,6 +23,10 @@ type result struct {
 
 func (l *results) setList(list []result) {
 	l.List = list
+}
+
+func (l * results) setChoices(cl []string) {
+	l.Choices = cl
 }
 
 var tpl *template.Template
@@ -46,6 +51,10 @@ func main() {
 
 func index(w http.ResponseWriter, req *http.Request) {
 
+	// a output variable to pass into the template
+	var output results
+
+	// grab the list of all audits from the db
 	ents, err := models.AllEntries()
 	if err != nil {
 		fmt.Println(err)
@@ -53,9 +62,10 @@ func index(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// create a results variable to pass into the template
+	// create a []result variable to pass into the template
 	var data []result
 
+	// put the returned audits into the data variable
 	for _, e := range ents {
 		var r result
 
@@ -65,9 +75,30 @@ func index(w http.ResponseWriter, req *http.Request) {
 		data = append(data, r)
 	}
 
-	var output results
+	// grab the list of scanners from the db
+	s, err := models.ScannerList()
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, http.StatusText(500), 500)
+		return
+	}
+	
 
+	// create a []string variable to hold the list of scanners
+	var scanners []string
+
+	// put the scanners into the slice
+	for _, v := range s {
+		var s string
+		s = v.Name 
+		scanners = append(scanners, s)
+	}
+
+
+
+	// build the output struct
 	output.setList(data)
+	output.setChoices(scanners)
 
 	tpl.ExecuteTemplate(w, "index.html", output)
 }
