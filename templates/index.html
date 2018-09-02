@@ -32,12 +32,14 @@
                     <th>Scanner</th>
                     <th>Last Audited</th>
                     <th>Audited By</th>
+                    <th>Location</th>
                 </tr>
                 {{range .List}}
                 <tr>
                     <td>{{.Equipment}}</td>
                     <td>{{.Date}}</td>
                     <td>{{.Tech}}</td>
+                    <td>{{.Location}}</td>
                 </tr>
                     
                 {{end}}

@@ -72,6 +72,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 		r.Equipment = e.Equipment
 		r.Date = e.Date
 		r.Tech = e.Tech
+		r.Location = e.Location
 		data = append(data, r)
 	}
 

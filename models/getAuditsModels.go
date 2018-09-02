@@ -10,7 +10,7 @@ type Entry struct {
 }
 
 func LastEntries() ([]*Entry, error){
-	rows, err := db.Query("SELECT ID, entity, timestamp, date, tech FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY entity ORDER BY DATE DESC) AS rn FROM audit2) t WHERE rn = 1 ORDER BY date")
+	rows, err := db.Query("SELECT ID, entity, timestamp, date, tech, location FROM (SELECT *, ROW_NUMBER() OVER (PARTITION BY entity ORDER BY DATE DESC) AS rn FROM audit2 a JOIN scanners s ON a.entity = s.name) t WHERE rn = 1 ORDER BY date")
 	if err != nil {
 		return nil, err
 	}
@@ -19,7 +19,7 @@ func LastEntries() ([]*Entry, error){
 	ents := make([]*Entry, 0)
 	for rows.Next() {
 		e := new(Entry)
-		err := rows.Scan(&e.ID, &e.Equipment, &e.Timestamp, &e.Date, &e.Tech)
+		err := rows.Scan(&e.ID, &e.Equipment, &e.Timestamp, &e.Date, &e.Tech, &e.Location)
 		if err != nil {
 			return nil, err
 		}
