@@ -1,5 +1,5 @@
 * {
-  /* border: 4px solid hotpink;*/ 
+  /* border: 4px solid hotpink; */
 }
 
 
@@ -25,6 +25,10 @@ nav ul {
     list-style: none;
 }
 
+nav a {
+    color: #ffffff;
+}
+
 form {
     display: flex;
     flex-direction: row;
@@ -42,6 +46,14 @@ form {
     border-radius: 20px;
     background-color: hotpink;
     margin: 15px;
+}
+
+#validationFailure{
+    margin: 0;
+    text-align: center;
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: #ff0000; 
 }
 
 table {

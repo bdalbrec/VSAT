@@ -14,6 +14,7 @@ type results struct {
 
 
 type result struct {
+	Building string
 	Location string
 	Equipment string
 	Date string
@@ -70,6 +71,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 		var r result
 
 		r.Equipment = e.Equipment
+		r.Building = e.Building
 		r.Date = e.Date
 		r.Tech = e.Tech
 		r.Location = e.Location

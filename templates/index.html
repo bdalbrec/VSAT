@@ -13,7 +13,7 @@
         
         {{template "nav"}}
 
-        <form method="post" action="add">
+        <form id="signoff" method="post" action="add">
             <fieldset>
                 <legend>Sign Off a Scanner Audit</legend>
                 <select id="equipment-input" class ="form-field" name="equipment" required>
@@ -26,12 +26,14 @@
                 <input id="btn-submit" type="submit" value="Submit">
             </fieldset>
         </form>
+        <p id="validationFailure">Invalid date: Format must be yyyy-mm-dd</p>
 
         <table>
                 <tr>
                     <th>Scanner</th>
                     <th>Last Audited</th>
                     <th>Audited By</th>
+                    <th>Building</th>
                     <th>Location</th>
                 </tr>
                 {{range .List}}
@@ -39,6 +41,7 @@
                     <td>{{.Equipment}}</td>
                     <td>{{.Date}}</td>
                     <td>{{.Tech}}</td>
+                    <td>{{.Building}}</td>
                     <td>{{.Location}}</td>
                 </tr>
                     
@@ -46,5 +49,7 @@
             </table> 
 
     {{template "footer"}}
+
+    <script src="public/validate.js"></script>
 </body>
 </html>
