@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/main.css">
+    <title>Virus Scan Audit Tracking</title>
+</head>
+<body>
+
+        <h1>Virus Scan Audit Tracking</h1>
+        
+        {{template "nav"}}
+
+        <form id="signoff" method="post" action="addChecklist">
+            <fieldset>
+                <legend>Sign Off a Scanner Audit</legend>
+                <input id="date-input" class ="form-field" name="date" placeholder= "yyyy-mm-dd" type="date" maxlength="25" required>
+                <input id="tech-input" class ="form-field" name="tech" type="text" placeholder="Audited By (idsid)" maxlength="25" required>
+                <input id="btn-submit" type="submit" value="Submit">
+                <p id="validationFailure">Date format must be yyyy-mm-dd and at least one scanner must be selected.</p>
+                
+                <table>
+                    <tr>
+                        <th>Signoff</th>
+                        <th>Scanner</th>
+                        <th>Last Audited</th>
+                        <th>Audited By</th>
+                        <th>Building</th>
+                        <th>Location</th>
+                    </tr>
+                    {{range .List}}
+                    <tr>
+                        <td><input type="checkbox" name="selectedTools" class="selectionBox" value="{{.Equipment}}"></td>
+                        <td>{{.Equipment}}</td>
+                        <td>{{.Date}}</td>
+                        <td>{{.Tech}}</td>
+                        <td>{{.Building}}</td>
+                        <td>{{.Location}}</td>
+                    </tr>
+                        
+                    {{end}}
+                </table>
+            </fieldset>
+        </form>
+
+    {{template "footer"}}
+
+    <script src="public/validate.js"></script>
+</body>
+</html>

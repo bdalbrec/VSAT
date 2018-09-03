@@ -43,6 +43,7 @@ func main() {
 	http.HandleFunc("/add", addEntry)
 	http.HandleFunc("/scanners", scanners)
 	http.HandleFunc("/addScanner", addScanner)
+	http.HandleFunc("/addChecklist", handleCheckboxes)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.Handle("/public/", http.StripPrefix("/public", http.FileServer(http.Dir("public/"))))
 	http.ListenAndServe(":8080", nil)
@@ -103,7 +104,7 @@ func index(w http.ResponseWriter, req *http.Request) {
 	output.setList(data)
 	output.setChoices(scanners)
 
-	tpl.ExecuteTemplate(w, "index.html", output)
+	tpl.ExecuteTemplate(w, "checkboxes.html", output)
 }
 
 
@@ -160,4 +161,19 @@ func addScanner(w http.ResponseWriter, req *http.Request) {
 	models.AddScanner(name, fab, loc)
 
 	http.Redirect(w, req, "/scanners", http.StatusSeeOther)
+}
+
+func handleCheckboxes(w http.ResponseWriter, req *http.Request) {
+	req.ParseForm()
+	selected := req.Form["selectedTools"]
+	date := req.FormValue("date")
+	tech := req.FormValue("tech")
+
+	for _, v := range selected {
+		fmt.Printf("Inserting %s\t %s\t %s into audits history.\n", v, date, tech)
+		models.Insert(v, date, tech)
+	}
+
+	http.Redirect(w, req, "/", http.StatusSeeOther)
+	return
 }
