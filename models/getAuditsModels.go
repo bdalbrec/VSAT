@@ -33,7 +33,7 @@ func LastEntries() ([]*Entry, error){
 }
 
 func AllEntries() ([]*Entry, error){
-	rows, err := db.Query("SELECT * FROM audit2 ORDER BY Date")
+	rows, err := db.Query("SELECT timestamp, entity, date, tech FROM audit2 ORDER BY entity, Date DESC")
 	if err != nil {
 		return nil, err
 	}

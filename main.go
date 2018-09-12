@@ -43,6 +43,7 @@ func main() {
 	http.HandleFunc("/add", addEntry)
 	http.HandleFunc("/scanners", scanners)
 	http.HandleFunc("/addScanner", addScanner)
+	http.HandleFunc("/history", fullHistory)
 	http.HandleFunc("/addChecklist", handleCheckboxes)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
 	http.Handle("/public/", http.StripPrefix("/public", http.FileServer(http.Dir("public/"))))
@@ -176,4 +177,39 @@ func handleCheckboxes(w http.ResponseWriter, req *http.Request) {
 
 	http.Redirect(w, req, "/", http.StatusSeeOther)
 	return
+}
+
+func fullHistory(w http.ResponseWriter, req *http.Request) {
+		// a output variable to pass into the template
+		var output results
+
+		// grab the list of all audits from the db
+		ents, err := models.AllEntries()
+		if err != nil {
+			fmt.Println(err)
+			http.Error(w, http.StatusText(500), 500)
+			return
+		}
+	
+		// create a []result variable to pass into the template
+		var data []result
+	
+		// put the returned audits into the data variable
+		for _, e := range ents {
+			var r result
+	
+			r.Equipment = e.Equipment
+			r.Building = e.Building
+			r.Date = e.Date
+			r.Tech = e.Tech
+			r.Location = e.Location
+			data = append(data, r)
+		}
+	
+	
+	
+		// build the output struct
+		output.setList(data)
+	
+		tpl.ExecuteTemplate(w, "history.html", output)
 }
