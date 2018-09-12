@@ -53,3 +53,25 @@ func AllEntries() ([]*Entry, error){
 	}
 	return ents, nil
 }
+
+func LimitedEntries(date string) ([]*Entry, error){
+	rows, err := db.Query("SELECT timestamp, entity, date, tech FROM audit2 WHERE CONVERT(datetime, date) >= CONVERT(datetime, $1) ORDER BY entity, date DESC", date)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	ents := make([]*Entry, 0)
+	for rows.Next() {
+		e := new(Entry)
+		err := rows.Scan(&e.Timestamp, &e.Equipment, &e.Date, &e.Tech)
+		if err != nil {
+			return nil, err
+		}
+		ents = append(ents, e)
+	}
+	if err = rows.Err(); err != nil {
+		return nil, err
+	}
+	return ents, nil
+}

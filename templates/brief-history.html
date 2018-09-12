@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="public/main.css">
+    <title>Virus Scan Audit Tracking</title>
+</head>
+<body>
+
+        <h1>7 Day Audit History</h1>
+        
+        {{template "nav"}}
+
+        <table id="historyTable">
+                <tr>
+                    <th>Scanner</th>
+                    <th>Date Audited</th>
+                    <th>Audited By</th>
+                </tr>
+                {{range .List}}
+                <tr>
+                    <td>{{.Equipment}}</td>
+                    <td>{{.Date}}</td>
+                    <td>{{.Tech}}</td>
+                </tr>
+                    
+                {{end}}
+            </table> 
+
+    {{template "footer"}}
+
+    <script src="public/validate.js"></script>
+</body>
+</html>

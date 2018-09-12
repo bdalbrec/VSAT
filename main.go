@@ -5,6 +5,7 @@ import (
 	"github.com/bdalbrec/VSAT/models"
 	"html/template"
 	"net/http"
+	"time"
 )
 
 type results struct {
@@ -43,6 +44,7 @@ func main() {
 	http.HandleFunc("/add", addEntry)
 	http.HandleFunc("/scanners", scanners)
 	http.HandleFunc("/addScanner", addScanner)
+	http.HandleFunc("/brief-history", briefHistory)
 	http.HandleFunc("/history", fullHistory)
 	http.HandleFunc("/addChecklist", handleCheckboxes)
 	http.Handle("/favicon.ico", http.NotFoundHandler())
@@ -212,4 +214,44 @@ func fullHistory(w http.ResponseWriter, req *http.Request) {
 		output.setList(data)
 	
 		tpl.ExecuteTemplate(w, "history.html", output)
+}
+
+
+func briefHistory(w http.ResponseWriter, req *http.Request) {
+	
+	// set t to today - 7 days and formatted yyyy-mm-dd
+	t := time.Now().AddDate(0, 0, -7).Format("2006-01-02")
+	
+	// a output variable to pass into the template
+	var output results
+
+	// grab the list of all audits from the db
+	ents, err := models.LimitedEntries(t)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, http.StatusText(500), 500)
+		return
+	}
+
+	// create a []result variable to pass into the template
+	var data []result
+
+	// put the returned audits into the data variable
+	for _, e := range ents {
+		var r result
+
+		r.Equipment = e.Equipment
+		r.Building = e.Building
+		r.Date = e.Date
+		r.Tech = e.Tech
+		r.Location = e.Location
+		data = append(data, r)
+	}
+
+
+
+	// build the output struct
+	output.setList(data)
+
+	tpl.ExecuteTemplate(w, "brief-history.html", output)
 }
